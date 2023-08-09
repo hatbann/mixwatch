@@ -1,102 +1,72 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+/** @format */
+"use client";
 
-const inter = Inter({ subsets: ['latin'] })
+import styles from "./page.module.css";
+import { playerInputType, usePlayerForm } from "./form/form.player";
+import { useState } from "react";
 
 export default function Home() {
+  const {
+    f: {
+      handleSubmit,
+      resetField,
+      formState: { errors, isValid },
+    },
+    r,
+  } = usePlayerForm();
+  const [players, setPlayers] = useState<playerInputType[]>([]);
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+      <section>
+        <h2>정보입력</h2>
+        <input type="checkbox" id="balance" name="teamType" />
+        <label htmlFor="balance">밸런스</label>
+        <input type="checkbox" id="similar" name="teamType" />
+        <label htmlFor="similar">비슷한 유저끼리</label>
+        <form action="">
+          <div>
+            <input type="text" {...r.name} placeholder="이름을 입력해주세요" />
+            {errors.name ? <p>{errors.name.message}</p> : <></>}
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              {...r.position}
+              id="tanker"
+              name="position"
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+            <label htmlFor="tanker">탱커</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              {...r.position}
+              id="dealer"
+              name="position"
+            />
+            <label htmlFor="dealer">딜러</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              {...r.position}
+              id="healer"
+              name="position"
+            />
+            <label htmlFor="healer">힐러</label>
+          </div>
+        </form>
+      </section>
+      <section>
+        {players.map((player, idx) => (
+          <div>
+            <span>{player.name}</span>
+            <span>{player.position}</span>
+            <span>{player.playTime}</span>
+          </div>
+        ))}
+      </section>
     </main>
-  )
+  );
 }
