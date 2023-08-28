@@ -1,10 +1,10 @@
 /** @format */
 
-import "./globals.scss";
+import './globals.scss';
 
 export const metadata = {
-  title: "MIXWATCH",
-  description: "devide team for overwatch",
+  title: 'MIXWATCH',
+  description: 'devide team for overwatch',
 };
 
 export default function RootLayout({
@@ -14,7 +14,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <img
+          src="/images/overwatchLogo.png"
+          alt="logo"
+          className="backgroundImg"
+        />
+        {children}
+      </body>
     </html>
   );
 }
